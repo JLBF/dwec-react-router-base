@@ -1,22 +1,14 @@
 import { useState } from "react";
+import { registro } from "../services/usuarios.service";
 
 export default function Registro() {
   const [alias, setAlias] = useState("");
   const [password, setPassword] = useState("");
 
-  const doRegistro = (e) => {
+  const doRegistro = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/usuarios/registro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ alias, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    const result = await registro(alias, password);
+    alert(result.alias+ " ha sido registrado")
   };
 
   return (
